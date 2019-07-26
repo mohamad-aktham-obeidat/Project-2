@@ -120,8 +120,8 @@ body {
 
 .error {
     position: relative;
-    animation: shake .4s;
-    animation-iteration-count: 3;
+    animation: shake .3s;
+    animation-iteration-count: 2;
 }
 
 @keyframes shake {

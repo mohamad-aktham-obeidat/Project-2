@@ -50,6 +50,7 @@
                 width: '80%'
             })
         })
+
         passwordSignInput.focus(function () {
             passwordSignInput.animate({
                 width: '100%'
@@ -61,12 +62,13 @@
                 width: '80%'
             })
         })
+
         phoneSignInput.focus(function () {
             phoneSignInput.animate({
                 width: '100%'
             })
         })
-
+        
         phoneSignInput.focusout(function () {
             phoneSignInput.animate({
                 width: '80%'
@@ -106,39 +108,52 @@
             })
         })
 
-        loginBtn.click(function () {
+        loginBtn.click(function (e) {
+            e.preventDefault();
 
             users.forEach(element => {
-                
+
                 if (emailInput.val() === element.email && passwordInput.val() === element.password) {
-                    window.open('profile.html')
+                    window.location.href = 'profile.html' + emailInput.val() + passwordInput.val();
                 }
 
                 if (emailInput.val() !== element.email) {
-                    emailInput.css('border', '3px red solid')
+                    emailInput.css('border', '2px red solid')
                     $('.email-field').addClass('error')
                     $('.wrong-email').attr('hidden', false);
                 }
 
                 if (passwordInput.val() !== element.password) {
-                    passwordInput.css('border', '3px red solid')
+                    passwordInput.css('border', '2px red solid')
                     $('.password-field').addClass('error')
                     $('.wrong-password').attr('hidden', false);
                 }
             })
 
-
             if (emailInput.val() === '') {
-                emailInput.css('border', '3px red solid')
+                emailInput.css('border', '2px red solid')
                 $('.email-field').addClass('error')
                 $('.wrong-email').attr('hidden', false);
             }
 
             if (passwordInput.val() === '') {
-                passwordInput.css('border', '3px red solid')
+                passwordInput.css('border', '2px red solid')
                 $('.password-field').addClass('error')
                 $('.wrong-password').attr('hidden', false);
             }
+        })
+
+
+        emailInput.keyup(function () {
+            emailInput.css('border', '2px solid rgba(37, 46, 170, 0.787)');
+            $('.email-field').removeClass('error');
+            $('.wrong-email').attr('hidden', true);
+        })
+
+        passwordInput.keyup(function () {
+            passwordInput.css('border', '2px solid rgba(37, 46, 170, 0.787)');
+            $('.password-field').removeClass('error');
+            $('.wrong-password').attr('hidden', true);
         })
 
     })

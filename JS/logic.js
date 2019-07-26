@@ -18,11 +18,27 @@
     var users = [{
         name: "Mohamad",
         email: "mohamadaktham7@gmail.com",
-        password: "123",
-        phone: 0777753111
+        password: "123456",
+        phone: '0777753111'
+    }, {
+        name: "Rawabi",
+        email: "rawabi@gmail.com",
+        password: "123456",
+        phone: '0774512365'
+    }, {
+        name: "Jozaa",
+        email: "jozaaa@gmail.com",
+        password: "123456",
+        phone: '0771234532'
+    }, {
+        name: "Mohamad",
+        email: "mohamadaktham7@gmail.com",
+        password: "123456",
+        phone: '0777519943'
     }]
 
     var newUser = {};
+    var counter = 0;
 
     /********************************************************************************************* */
 
@@ -83,7 +99,6 @@
 
 
         //Regular Expressions For Validating Purposes
-
         function EmailValidation(emailValue) {
             var regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
             return regex.test(emailValue);
@@ -161,7 +176,6 @@
         signUpBtn.click(function (e) {
             e.preventDefault();
 
-            let counter = 0;
             if (validateName()) {
                 newUser['name'] = nameSignInput.val().trim();
                 counter++;
@@ -175,11 +189,9 @@
                 counter++;
             }
             if (validatePhone()) {
-                newUser['phone'] = phoneSignInput.val().trim();
+                newUser['phone'] = phoneSignInput.val().trim()+'';
                 counter++;
             }
-
-
             if (counter === 4) {
                 users.push(newUser);
                 window.location.href = 'profile.html';
@@ -201,7 +213,7 @@
             passwordSignInput.css('border', '2px solid rgba(37, 46, 170, 0.787)');
             $('.wrong-sign-password').attr('hidden', true);
         })
-        
+
         phoneSignInput.keyup(function () {
             phoneSignInput.css('border', '2px solid rgba(37, 46, 170, 0.787)');
             $('.wrong-sign-Phone').attr('hidden', true);

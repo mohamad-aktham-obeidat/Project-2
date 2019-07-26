@@ -11,7 +11,7 @@
     var emailInput = $("#email-in");
     var passwordInput = $("#pass-in");
     var loginBtn = $("#login-btn");
-    var signUpBtn = $("#sign-up");
+    var goToSignUpPageBtn = $("#sign-up");
 
 
     /* Users Data */
@@ -19,14 +19,19 @@
         name: "Mohamad",
         email: "mohamadaktham7@gmail.com",
         password: "123",
-        pgone: 0777753111
+        phone: 0777753111
     }]
 
+    var newUser = {};
 
+    /********************************************************************************************* */
+
+    //Start Doing Some Logic :) 
     $(document).ready(function () {
 
         /* Sign Up Part*/
 
+        // Start Animate Input Fields When Focus 
         nameSignInput.focus(function () {
             nameSignInput.animate({
                 width: '100%'
@@ -68,20 +73,144 @@
                 width: '100%'
             })
         })
-        
+
         phoneSignInput.focusout(function () {
             phoneSignInput.animate({
                 width: '80%'
             })
         })
+        // End Animate Input Fields When Focus 
 
 
+        //Regular Expressions For Validating Purposes
+
+        function EmailValidation(emailValue) {
+            var regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            return regex.test(emailValue);
+        }
+
+        function passwordValidation(passwordvalue) {
+            var regex = /^[a-zA-Z0-9]{5,15}$/;
+            return regex.test(passwordvalue);
+        }
+
+        function PhoneValidation(phoneValue) {
+            var regex = /^[0-9]{10}$/;
+            return regex.test(phoneValue);
+        }
+        //End Regular Expressions For Validating Purposes
 
 
+        //Functions To Check Validation Status.
+        function validateName() {
+            var nameSignInputVal = nameSignInput.val().trim();
+            if (nameSignInputVal === '') {
+                $('.wrong-sign-name').attr('hidden', false);
+                nameSignInput.css('border', '2px red solid')
+                $('.name-field').addClass('error')
+                return false
+            } else {
+                return true;
+            }
+        }
 
+        function validateEmail() {
+
+            var emailSignInputVal = emailSignInput.val().trim();
+            if (EmailValidation(emailSignInputVal) === false) {
+                $('.wrong-sign-email').attr('hidden', false);
+                emailSignInput.css('border', '2px red solid')
+                $('.email-field').addClass('error')
+                return false
+            } else {
+                return true;
+            }
+
+        }
+
+        function validatePassword() {
+
+            var passwordSignInputVal = passwordSignInput.val().trim();
+            if (passwordValidation(passwordSignInputVal) === false) {
+                $('.wrong-sign-password').attr('hidden', false);
+                passwordSignInput.css('border', '2px red solid')
+                $('.password-field').addClass('error')
+                return false
+            } else {
+                return true;
+            }
+
+        }
+
+        function validatePhone() {
+
+            var phoneSignInputVal = phoneSignInput.val().trim();
+            if (PhoneValidation(phoneSignInputVal) === false) {
+                $('.wrong-sign-Phone').attr('hidden', false);
+                phoneSignInput.css('border', '2px red solid')
+                $('.phone-field').addClass('error')
+                return false
+            } else {
+                return true;
+            }
+        }
+        //End Functions To Check Validation Status.
+
+
+        //Sign Up Click Event.
+        signUpBtn.click(function (e) {
+            e.preventDefault();
+
+            let counter = 0;
+            if (validateName()) {
+                newUser['name'] = nameSignInput.val().trim();
+                counter++;
+            }
+            if (validateEmail()) {
+                newUser['email'] = emailSignInput.val().trim();
+                counter++;
+            }
+            if (validatePassword()) {
+                newUser['password'] = passwordSignInput.val().trim();
+                counter++;
+            }
+            if (validatePhone()) {
+                newUser['phone'] = phoneSignInput.val().trim();
+                counter++;
+            }
+
+
+            if (counter === 4) {
+                users.push(newUser);
+                window.location.href = 'profile.html';
+            }
+        })
+
+        //Remove Errors Alerts when User Reenter New Valuse.
+        nameSignInput.keyup(function () {
+            nameSignInput.css('border', '2px solid rgba(37, 46, 170, 0.787)');
+            $('.wrong-sign-name').attr('hidden', true);
+        })
+
+        emailSignInput.keyup(function () {
+            emailSignInput.css('border', '2px solid rgba(37, 46, 170, 0.787)');
+            $('.wrong-sign-email').attr('hidden', true);
+        })
+
+        passwordSignInput.keyup(function () {
+            passwordSignInput.css('border', '2px solid rgba(37, 46, 170, 0.787)');
+            $('.wrong-sign-password').attr('hidden', true);
+        })
+        
+        phoneSignInput.keyup(function () {
+            phoneSignInput.css('border', '2px solid rgba(37, 46, 170, 0.787)');
+            $('.wrong-sign-Phone').attr('hidden', true);
+        })
+
+        /************************************************************************************************************** */
 
         /* Log In Part*/
-        //Animate Email Input Width
+        // Start Animate Input Fields When Focus 
         emailInput.focus(function () {
             emailInput.animate({
                 width: '100%'
@@ -95,7 +224,6 @@
             })
         })
 
-        //Animate Password Input Width
         passwordInput.focus(function () {
             passwordInput.animate({
                 width: '100%'
@@ -107,7 +235,10 @@
                 width: '80%'
             })
         })
+        // End Animate Input Fields When Focus 
 
+
+        //Login Button Click Event.
         loginBtn.click(function (e) {
             e.preventDefault();
 
@@ -144,6 +275,7 @@
         })
 
 
+        //Remove Errors Alerts when User Reenter New Valuse. 
         emailInput.keyup(function () {
             emailInput.css('border', '2px solid rgba(37, 46, 170, 0.787)');
             $('.email-field').removeClass('error');

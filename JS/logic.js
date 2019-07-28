@@ -257,7 +257,7 @@
             users.forEach(element => {
 
                 if (emailInput.val() === element.email && passwordInput.val() === element.password) {
-                    window.location.href = 'profile.html' + emailInput.val() + passwordInput.val();
+                    window.location.href = 'profile.html';
                 }
 
                 if (emailInput.val() !== element.email) {

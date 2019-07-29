@@ -189,12 +189,14 @@
                 counter++;
             }
             if (validatePhone()) {
-                newUser['phone'] = phoneSignInput.val().trim()+'';
+                newUser['phone'] = phoneSignInput.val().trim() + '';
                 counter++;
             }
             if (counter === 4) {
                 users.push(newUser);
+                localStorage.setItem('users', JSON.stringify(users))
                 window.location.href = 'profile.html';
+                counter = 0;
             }
         })
 
@@ -254,19 +256,29 @@
         loginBtn.click(function (e) {
             e.preventDefault();
 
-            users.forEach(element => {
+            if (JSON.parse(localStorage.getItem("users").length) > users.length) {
+                var usersLoop = JSON.parse(localStorage.getItem("users"))
+            } else {
+                var usersLoop = users
+            }
 
-                if (emailInput.val() === element.email && passwordInput.val() === element.password) {
+
+            usersLoop.forEach(element => {
+
+                if (emailInput.val().trim() === element.email && passwordInput.val().trim() === element.password) {
                     window.location.href = 'profile.html';
                 }
 
-                if (emailInput.val() !== element.email) {
+
+                if (emailInput.val().trim() !== element.email) {
+
                     emailInput.css('border', '2px red solid')
                     $('.email-field').addClass('error')
                     $('.wrong-email').attr('hidden', false);
                 }
 
-                if (passwordInput.val() !== element.password) {
+                if (passwordInput.val().trim() !== element.password) {
+
                     passwordInput.css('border', '2px red solid')
                     $('.password-field').addClass('error')
                     $('.wrong-password').attr('hidden', false);
@@ -301,4 +313,5 @@
         })
 
     })
+
 }

@@ -1,4 +1,8 @@
 {
+    // back to home
+
+    localStorage = null;
+
     /* Sign Up Instance Variables*/
     var nameSignInput = $("#name-in");
     var emailSignInput = $("#email-signup-in");
@@ -12,6 +16,7 @@
     var passwordInput = $("#pass-in");
     var loginBtn = $("#login-btn");
     var goToSignUpPageBtn = $("#sign-up");
+    var logoutBtn = $("#logout");
 
 
     /* Users Data */
@@ -43,59 +48,59 @@
     /********************************************************************************************* */
 
     //Start Doing Some Logic :) 
-    $(document).ready(function () {
+    $(document).ready(function() {
 
         /* Sign Up Part*/
 
         // Start Animate Input Fields When Focus 
-        nameSignInput.focus(function () {
+        nameSignInput.focus(function() {
             nameSignInput.animate({
                 width: '100%'
             })
         })
 
-        nameSignInput.focusout(function () {
+        nameSignInput.focusout(function() {
             nameSignInput.animate({
                 width: '80%'
             })
         })
 
-        emailSignInput.focus(function () {
+        emailSignInput.focus(function() {
             emailSignInput.animate({
                 width: '100%'
             })
         })
 
-        emailSignInput.focusout(function () {
+        emailSignInput.focusout(function() {
             emailSignInput.animate({
                 width: '80%'
             })
         })
 
-        passwordSignInput.focus(function () {
+        passwordSignInput.focus(function() {
             passwordSignInput.animate({
                 width: '100%'
             })
         })
 
-        passwordSignInput.focusout(function () {
+        passwordSignInput.focusout(function() {
             passwordSignInput.animate({
                 width: '80%'
             })
         })
 
-        phoneSignInput.focus(function () {
+        phoneSignInput.focus(function() {
             phoneSignInput.animate({
                 width: '100%'
             })
         })
 
-        phoneSignInput.focusout(function () {
-            phoneSignInput.animate({
-                width: '80%'
+        phoneSignInput.focusout(function() {
+                phoneSignInput.animate({
+                    width: '80%'
+                })
             })
-        })
-        // End Animate Input Fields When Focus 
+            // End Animate Input Fields When Focus 
 
 
         //Regular Expressions For Validating Purposes
@@ -173,50 +178,52 @@
 
 
         //Sign Up Click Event.
-        signUpBtn.click(function (e) {
-            e.preventDefault();
-
-            if (validateName()) {
-                newUser['name'] = nameSignInput.val().trim();
-                counter++;
-            }
-            if (validateEmail()) {
-                newUser['email'] = emailSignInput.val().trim();
-                counter++;
-            }
-            if (validatePassword()) {
-                newUser['password'] = passwordSignInput.val().trim();
-                counter++;
-            }
-            if (validatePhone()) {
-                newUser['phone'] = phoneSignInput.val().trim() + '';
-                counter++;
-            }
-            if (counter === 4) {
-                users.push(newUser);
-                localStorage.setItem('users', JSON.stringify(users))
-                window.location.href = 'profile.html';
-                counter = 0;
-            }
-        })
+        signUpBtn.click(function(e) {
+                e.preventDefault();
+                if (validateName()) {
+                    newUser['name'] = nameSignInput.val().trim();
+                    counter++;
+                }
+                if (validateEmail()) {
+                    newUser['email'] = emailSignInput.val().trim();
+                    counter++;
+                }
+                if (validatePassword()) {
+                    newUser['password'] = passwordSignInput.val().trim();
+                    counter++;
+                }
+                if (validatePhone()) {
+                    newUser['phone'] = phoneSignInput.val().trim() + '';
+                    counter++;
+                }
+                if (counter === 4) {
+                    users.push(newUser);
+                    localStorage.setItem('users', JSON.stringify(users))
+                    window.location.href = 'profile.html';
+                    counter = 0;
+                }
+            })
+            // logoutBtn.click(function () {
+            //     window.location.href = 'home.html';
+            // });
 
         //Remove Errors Alerts when User Reenter New Valuse.
-        nameSignInput.keyup(function () {
+        nameSignInput.keyup(function() {
             nameSignInput.css('border', '2px solid rgba(37, 46, 170, 0.787)');
             $('.wrong-sign-name').attr('hidden', true);
         })
 
-        emailSignInput.keyup(function () {
+        emailSignInput.keyup(function() {
             emailSignInput.css('border', '2px solid rgba(37, 46, 170, 0.787)');
             $('.wrong-sign-email').attr('hidden', true);
         })
 
-        passwordSignInput.keyup(function () {
+        passwordSignInput.keyup(function() {
             passwordSignInput.css('border', '2px solid rgba(37, 46, 170, 0.787)');
             $('.wrong-sign-password').attr('hidden', true);
         })
 
-        phoneSignInput.keyup(function () {
+        phoneSignInput.keyup(function() {
             phoneSignInput.css('border', '2px solid rgba(37, 46, 170, 0.787)');
             $('.wrong-sign-Phone').attr('hidden', true);
         })
@@ -225,44 +232,43 @@
 
         /* Log In Part*/
         // Start Animate Input Fields When Focus 
-        emailInput.focus(function () {
+        emailInput.focus(function() {
             emailInput.animate({
                 width: '100%'
             })
 
         })
 
-        emailInput.focusout(function () {
+        emailInput.focusout(function() {
             emailInput.animate({
                 width: '80%'
             })
         })
 
-        passwordInput.focus(function () {
+        passwordInput.focus(function() {
             passwordInput.animate({
                 width: '100%'
             })
         })
 
-        passwordInput.focusout(function () {
-            passwordInput.animate({
-                width: '80%'
+        passwordInput.focusout(function() {
+                passwordInput.animate({
+                    width: '80%'
+                })
             })
-        })
-        // End Animate Input Fields When Focus 
+            // End Animate Input Fields When Focus 
 
 
         //Login Button Click Event.
-        loginBtn.click(function (e) {
+        loginBtn.click(function(e) {
             e.preventDefault();
-
             if (JSON.parse(localStorage.getItem("users").length) > users.length) {
                 var usersLoop = JSON.parse(localStorage.getItem("users"))
             } else {
                 var usersLoop = users
             }
 
-
+            console.log(usersLoop)
             usersLoop.forEach(element => {
 
                 if (emailInput.val().trim() === element.email && passwordInput.val().trim() === element.password) {
@@ -300,13 +306,13 @@
 
 
         //Remove Errors Alerts when User Reenter New Valuse. 
-        emailInput.keyup(function () {
+        emailInput.keyup(function() {
             emailInput.css('border', '2px solid rgba(37, 46, 170, 0.787)');
             $('.email-field').removeClass('error');
             $('.wrong-email').attr('hidden', true);
         })
 
-        passwordInput.keyup(function () {
+        passwordInput.keyup(function() {
             passwordInput.css('border', '2px solid rgba(37, 46, 170, 0.787)');
             $('.password-field').removeClass('error');
             $('.wrong-password').attr('hidden', true);
